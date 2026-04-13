@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:github.com)",
+      "Bash(gh api:*)",
+      "mcp__chrome-devtools__new_page"
+    ],
+    "additionalDirectories": [
+      "D:\\workspace\\home"
+    ]
+  }
+}

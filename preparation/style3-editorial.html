@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>John Doe — Writer & Developer</title>
+  <style>
+    :root {
+      --ink: #1a1a1a;
+      --paper: #faf8f5;
+      --cream: #f5f2ed;
+      --gold: #c9a96e;
+      --brown: #8b7355;
+      --muted: #9a9590;
+      --line: #e5e2dd;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      font-size: 16px;
+    }
+
+    body {
+      font-family: Georgia, "Times New Roman", "Book Antiqua", Palatino, serif;
+      background: var(--paper);
+      color: var(--ink);
+      line-height: 1.8;
+      min-height: 100vh;
+    }
+
+    /* Header */
+    header {
+      padding: 1.5rem 2rem;
+      border-bottom: 1px solid var(--line);
+      background: var(--paper);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    nav {
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1rem;
+      font-style: italic;
+      color: var(--brown);
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 2.5rem;
+    }
+
+    nav a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.8125rem;
+      letter-spacing: 0.03em;
+      transition: color 0.2s;
+    }
+
+    nav a:hover {
+      color: var(--ink);
+    }
+
+    /* Main */
+    main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* Hero */
+    .hero {
+      padding: 7rem 0 5rem;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .hero-eyebrow {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--gold);
+      margin-bottom: 1.5rem;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.5rem, 7vw, 4.5rem);
+      font-weight: 400;
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+      margin-bottom: 2rem;
+      color: var(--ink);
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--brown);
+    }
+
+    .hero p {
+      font-size: 1.1875rem;
+      color: var(--muted);
+      max-width: 580px;
+      line-height: 1.9;
+    }
+
+    .hero-meta {
+      display: flex;
+      gap: 3rem;
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--line);
+    }
+
+    .meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .meta-label {
+      font-size: 0.6875rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    .meta-value {
+      font-size: 0.9375rem;
+      color: var(--ink);
+    }
+
+    /* Section */
+    section {
+      padding: 5rem 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    section:last-child {
+      border-bottom: none;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 3rem;
+    }
+
+    .section-label {
+      font-size: 0.6875rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--gold);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    .section-title {
+      font-size: 1.75rem;
+      font-weight: 400;
+      font-style: italic;
+      color: var(--ink);
+    }
+
+    /* Projects */
+    .projects-list {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .project-item {
+      display: grid;
+      grid-template-columns: 100px 1fr;
+      gap: 2.5rem;
+      padding: 2rem 0;
+      border-bottom: 1px solid var(--line);
+      transition: all 0.2s;
+    }
+
+    .project-item:last-child {
+      border-bottom: none;
+    }
+
+    .project-item:hover {
+      padding-left: 1rem;
+    }
+
+    .project-year {
+      font-size: 0.8125rem;
+      color: var(--muted);
+      padding-top: 0.25rem;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    .project-content h3 {
+      font-size: 1.25rem;
+      font-weight: 400;
+      margin-bottom: 0.5rem;
+      color: var(--ink);
+    }
+
+    .project-content h3 a {
+      color: inherit;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .project-content h3 a:hover {
+      color: var(--gold);
+    }
+
+    .project-content p {
+      font-size: 0.9375rem;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 0.75rem;
+    }
+
+    .project-tags {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .project-tag {
+      font-size: 0.6875rem;
+      color: var(--brown);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    .project-tag:not(:last-child)::after {
+      content: '·';
+      margin-left: 0.75rem;
+      color: var(--line);
+    }
+
+    /* About */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+    }
+
+    .about-image {
+      aspect-ratio: 4/5;
+      background: var(--cream);
+      border: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      color: var(--line);
+    }
+
+    .about-content h3 {
+      font-size: 1.125rem;
+      font-weight: 400;
+      margin-bottom: 1.25rem;
+      color: var(--ink);
+    }
+
+    .about-content p {
+      font-size: 0.9375rem;
+      color: var(--muted);
+      line-height: 1.85;
+      margin-bottom: 1.25rem;
+    }
+
+    .about-content p:last-of-type {
+      margin-bottom: 2rem;
+    }
+
+    .about-quote {
+      padding: 1.5rem 0;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      font-style: italic;
+      color: var(--brown);
+      font-size: 1.0625rem;
+      line-height: 1.75;
+    }
+
+    /* Writing */
+    .writing-list {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .writing-item {
+      padding: 1.75rem 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .writing-item:last-child {
+      border-bottom: none;
+    }
+
+    .writing-item h3 {
+      font-size: 1.1875rem;
+      font-weight: 400;
+      margin-bottom: 0.5rem;
+    }
+
+    .writing-item h3 a {
+      color: var(--ink);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .writing-item h3 a:hover {
+      color: var(--gold);
+    }
+
+    .writing-meta {
+      font-size: 0.75rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    .writing-excerpt {
+      margin-top: 0.75rem;
+      font-size: 0.9375rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    /* Contact */
+    .contact-section {
+      padding: 6rem 0;
+      text-align: center;
+    }
+
+    .contact-section h2 {
+      font-size: 2.5rem;
+      font-weight: 400;
+      font-style: italic;
+      margin-bottom: 1rem;
+      color: var(--ink);
+    }
+
+    .contact-section p {
+      font-size: 1rem;
+      color: var(--muted);
+      margin-bottom: 2.5rem;
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .contact-email {
+      font-size: 1.25rem;
+      color: var(--brown);
+      text-decoration: none;
+      border-bottom: 1px solid var(--gold);
+      padding-bottom: 0.25rem;
+      transition: all 0.2s;
+    }
+
+    .contact-email:hover {
+      color: var(--gold);
+      border-bottom-color: var(--brown);
+    }
+
+    .contact-links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .contact-link {
+      font-size: 0.75rem;
+      color: var(--muted);
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      transition: color 0.2s;
+    }
+
+    .contact-link:hover {
+      color: var(--ink);
+    }
+
+    /* Footer */
+    footer {
+      padding: 2.5rem 2rem;
+      text-align: center;
+      border-top: 1px solid var(--line);
+    }
+
+    footer p {
+      font-size: 0.75rem;
+      color: var(--muted);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      nav ul {
+        gap: 1.5rem;
+      }
+
+      .hero {
+        padding: 5rem 0 4rem;
+      }
+
+      .hero-meta {
+        flex-wrap: wrap;
+        gap: 1.5rem;
+      }
+
+      .project-item {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+      }
+
+      .about-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      .about-image {
+        max-height: 300px;
+      }
+
+      .contact-section h2 {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <div class="logo">John Doe</div>
+      <ul>
+        <li><a href="#work">Work</a></li>
+        <li><a href="#writing">Writing</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-eyebrow">Writer · Developer · Designer</div>
+      <h1>Crafting digital<br><em>experiences</em> with<br>purpose and care.</h1>
+      <p>I design and build websites, applications, and digital products that balance aesthetics with functionality. Based in New York, working with clients worldwide.</p>
+      <div class="hero-meta">
+        <div class="meta-item">
+          <span class="meta-label">Experience</span>
+          <span class="meta-value">8 Years</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Projects</span>
+          <span class="meta-value">50+ Completed</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Focus</span>
+          <span class="meta-value">Web & Mobile</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="work">
+      <div class="section-header">
+        <span class="section-label">Selected Projects</span>
+      </div>
+      <div class="projects-list">
+        <article class="project-item">
+          <div class="project-year">2025</div>
+          <div class="project-content">
+            <h3><a href="#">CloudSync Platform</a></h3>
+            <p>A real-time collaboration tool for distributed teams with live document editing and video conferencing capabilities.</p>
+            <div class="project-tags">
+              <span class="project-tag">React</span>
+              <span class="project-tag">Node.js</span>
+              <span class="project-tag">WebSocket</span>
+            </div>
+          </div>
+        </article>
+        <article class="project-item">
+          <div class="project-year">2024</div>
+          <div class="project-content">
+            <h3><a href="#">NeuralArt Generator</a></h3>
+            <p>AI-powered artwork generation platform using diffusion models for creative exploration and style transfer.</p>
+            <div class="project-tags">
+              <span class="project-tag">Python</span>
+              <span class="project-tag">PyTorch</span>
+              <span class="project-tag">FastAPI</span>
+            </div>
+          </div>
+        </article>
+        <article class="project-item">
+          <div class="project-year">2024</div>
+          <div class="project-content">
+            <h3><a href="#">DataFlow Dashboard</a></h3>
+            <p>Analytics dashboard for monitoring infrastructure metrics with customizable visualizations and real-time updates.</p>
+            <div class="project-tags">
+              <span class="project-tag">Vue.js</span>
+              <span class="project-tag">D3.js</span>
+              <span class="project-tag">GraphQL</span>
+            </div>
+          </div>
+        </article>
+        <article class="project-item">
+          <div class="project-year">2023</div>
+          <div class="project-content">
+            <h3><a href="#">SecureVault API</a></h3>
+            <p>Enterprise-grade password management system with zero-knowledge encryption and team sharing features.</p>
+            <div class="project-tags">
+              <span class="project-tag">Go</span>
+              <span class="project-tag">gRPC</span>
+              <span class="project-tag">Kubernetes</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="writing">
+      <div class="section-header">
+        <span class="section-label">Writing</span>
+        <span class="section-title">Thoughts & Ideas</span>
+      </div>
+      <div class="writing-list">
+        <article class="writing-item">
+          <h3><a href="#">The Art of Minimalist Web Design</a></h3>
+          <div class="writing-meta">March 2026 · 8 min read</div>
+          <p class="writing-excerpt">Exploring how restraint and negative space can create more impactful digital experiences that resonate with users.</p>
+        </article>
+        <article class="writing-item">
+          <h3><a href="#">Building for Scale: Lessons from Production</a></h3>
+          <div class="writing-meta">January 2026 · 12 min read</div>
+          <p class="writing-excerpt">Hard-won insights from building and maintaining systems that serve millions of users across different time zones.</p>
+        </article>
+        <article class="writing-item">
+          <h3><a href="#">The Intersection of Design and Engineering</a></h3>
+          <div class="writing-meta">November 2025 · 6 min read</div>
+          <p class="writing-excerpt">Why the best digital products emerge when designers learn to code and developers learn to design.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="section-header">
+        <span class="section-label">About</span>
+        <span class="section-title">The Person Behind the Work</span>
+      </div>
+      <div class="about-grid">
+        <div class="about-image">
+          <span>[ Photo ]</span>
+        </div>
+        <div class="about-content">
+          <h3>Hello, I'm John</h3>
+          <p>A full-stack developer and designer with 8+ years of experience building web applications and digital products. I specialize in creating seamless user experiences backed by robust, scalable architecture.</p>
+          <p>Previously at Stripe and Figma, now helping startups and enterprises bring their ideas to life through code and design. I believe great products are born at the intersection of aesthetics and engineering.</p>
+          <blockquote class="about-quote">
+            "Design is not just what it looks like and feels like. Design is how it works."
+          </blockquote>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="contact-section">
+      <div class="section-label">Get in Touch</div>
+      <h2>Let's Create Together</h2>
+      <p>Available for freelance projects, collaborations, and full-time opportunities.</p>
+      <a href="mailto:john@example.com" class="contact-email">john@example.com</a>
+      <div class="contact-links">
+        <a href="#" class="contact-link">GitHub</a>
+        <a href="#" class="contact-link">LinkedIn</a>
+        <a href="#" class="contact-link">Twitter</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2026 John Doe · Crafted with care</p>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>jfjfjbjb home</title>
+  <style>
+    :root {
+      --bg-deep: #0a0a0f;
+      --bg-card: #12121a;
+      --bg-hover: #1a1a25;
+      --neon-green: #00ff88;
+      --neon-blue: #6366f1;
+      --neon-purple: #a855f7;
+      --text-primary: #e4e4e7;
+      --text-secondary: #71717a;
+      --border: #27272a;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      font-size: 16px;
+    }
+
+    body {
+      font-family: "SF Mono", "Cascadia Code", "Fira Code", Consolas, "Liberation Mono", monospace;
+      background: var(--bg-deep);
+      color: var(--text-primary);
+      line-height: 1.7;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Grid Background */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image:
+        linear-gradient(rgba(99, 102, 241, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(99, 102, 241, 0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    /* Header */
+    header {
+      padding: 1.5rem 2rem;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(10, 10, 15, 0.9);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      z-index: 100;
+    }
+
+    nav {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--neon-green);
+      text-shadow: 0 0 20px rgba(0, 255, 136, 0.4);
+    }
+
+    .logo span {
+      color: var(--text-secondary);
+    }
+
+    nav ul {
+      display: none;
+    }
+
+    .github-icon {
+      color: var(--text-secondary);
+      transition: color 0.2s;
+      display: flex;
+      align-items: center;
+    }
+
+    .github-icon:hover {
+      color: var(--neon-green);
+    }
+
+    /* Main */
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* Hero */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding-top: 5rem;
+      position: relative;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 200px;
+      height: 200px;
+      background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.75rem;
+      color: var(--neon-green);
+      margin-bottom: 2rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .status::before {
+      content: '';
+      width: 8px;
+      height: 8px;
+      background: var(--neon-green);
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--neon-green);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    .hero h1 {
+      font-size: clamp(3rem, 8vw, 6rem);
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero h1 .accent {
+      color: var(--neon-blue);
+      text-shadow: 0 0 40px rgba(99, 102, 241, 0.4);
+    }
+
+    .hero p {
+      font-size: 1.125rem;
+      color: var(--text-secondary);
+      max-width: 500px;
+      line-height: 1.8;
+    }
+
+    .hero-location {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      margin-top: 0.5rem;
+    }
+
+    .hero-tags {
+      display: flex;
+      gap: 1rem;
+      margin-top: 3rem;
+      flex-wrap: wrap;
+    }
+
+    .hero-tag {
+      padding: 0.5rem 1rem;
+      border: 1px solid var(--border);
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      transition: all 0.2s;
+    }
+
+    .hero-tag:hover {
+      border-color: var(--neon-green);
+      color: var(--neon-green);
+      box-shadow: 0 0 15px rgba(0, 255, 136, 0.1);
+    }
+
+    /* Section */
+    section {
+      padding: 4rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .section-label {
+      font-size: 0.7rem;
+      color: var(--neon-purple);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      margin-bottom: 0.75rem;
+    }
+
+    .section-title {
+      font-size: 1.75rem;
+      font-weight: 600;
+      margin-bottom: 3rem;
+      color: var(--text-primary);
+    }
+
+    /* Projects */
+    .projects-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+
+    .project-item {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 2rem;
+      padding: 2rem;
+      background: var(--bg-deep);
+      transition: background 0.2s;
+      cursor: pointer;
+    }
+
+    .project-item:hover {
+      background: var(--bg-card);
+    }
+
+    .project-item:hover .project-arrow {
+      transform: translateX(5px);
+      color: var(--neon-green);
+    }
+
+    .project-info h3 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--text-primary);
+    }
+
+    .project-info p {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      max-width: 600px;
+    }
+
+    .project-tech {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .tech-tag {
+      font-size: 0.65rem;
+      padding: 0.2rem 0.5rem;
+      background: rgba(99, 102, 241, 0.1);
+      color: var(--neon-blue);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .project-arrow {
+      color: var(--text-secondary);
+      font-size: 1.5rem;
+      transition: all 0.2s;
+      align-self: center;
+    }
+
+    /* Skills */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .skill-card {
+      padding: 1.5rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      transition: all 0.2s;
+    }
+
+    .skill-card:hover {
+      border-color: var(--neon-blue);
+      box-shadow: 0 0 30px rgba(99, 102, 241, 0.1);
+    }
+
+    .skill-icon {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .skill-card h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .skill-card p {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    .skill-bar {
+      height: 3px;
+      background: var(--border);
+      margin-top: 1rem;
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .skill-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple));
+      border-radius: 2px;
+    }
+
+    /* Contact */
+    .contact-box {
+      text-align: center;
+      padding: 5rem 2rem;
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .contact-box::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 300px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--neon-green), transparent);
+    }
+
+    .contact-box h2 {
+      font-size: 2rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    .contact-box p {
+      color: var(--text-secondary);
+      margin-bottom: 2.5rem;
+    }
+
+    .contact-links {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .contact-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.875rem 1.75rem;
+      font-family: inherit;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      text-decoration: none;
+      transition: all 0.2s;
+      cursor: pointer;
+      border: none;
+    }
+
+    .contact-btn.primary {
+      background: var(--neon-green);
+      color: var(--bg-deep);
+      font-weight: 600;
+    }
+
+    .contact-btn.primary:hover {
+      box-shadow: 0 0 25px rgba(0, 255, 136, 0.4);
+      transform: translateY(-2px);
+    }
+
+    .contact-btn.secondary {
+      background: transparent;
+      color: var(--text-primary);
+      border: 1px solid var(--border);
+    }
+
+    .contact-btn.secondary:hover {
+      border-color: var(--neon-blue);
+      color: var(--neon-blue);
+    }
+
+    /* Footer */
+    footer {
+      padding: 2rem;
+      text-align: center;
+      font-size: 0.7rem;
+      color: var(--text-secondary);
+      border-top: 1px solid var(--border);
+    }
+
+    footer a {
+      color: var(--neon-blue);
+      text-decoration: none;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      nav ul {
+        display: none;
+      }
+
+      .project-item {
+        grid-template-columns: 1fr;
+      }
+
+      .project-arrow {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <div class="logo">jfjfjbjb</div>
+      <a href="https://github.com/jfjfjbjb" target="_blank" class="github-icon" aria-label="GitHub">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+        </svg>
+      </a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <h1>Web<span class="accent">开发者</span></h1>
+      <p>使用现代技术构建 Web 应用，追求简洁代码与用户体验，开源爱好者。</p>
+      <p class="hero-location">中国 · 重庆</p>
+      <div class="hero-tags">
+        <span class="hero-tag">React</span>
+        <span class="hero-tag">Vue.js</span>
+        <span class="hero-tag">TypeScript</span>
+        <span class="hero-tag">Node.js</span>
+      </div>
+    </section>
+
+    <section id="work">
+      <h2 class="section-title">精选项目</h2>
+      <div class="projects-list">
+        <article class="project-item" onclick="window.open('https://jfjfjbjb.github.io/water-mask/', '_blank')">
+          <div class="project-info">
+            <h3>Water Mask — 水印相机</h3>
+            <p>一款简洁高效的在线水印添加工具，支持为图片添加时间、地点等水印信息。批量上传、实时预览、灵活缩放、一键下载 JPG。</p>
+            <div class="project-tech">
+              <span class="tech-tag">React 19</span>
+              <span class="tech-tag">TypeScript</span>
+              <span class="tech-tag">Ant Design 6</span>
+              <span class="tech-tag">Vite</span>
+            </div>
+          </div>
+          <div class="project-arrow">→</div>
+        </article>
+        <article class="project-item" onclick="window.open('https://jfjfjbjb.github.io/file-diff/', '_blank')">
+          <div class="project-info">
+            <h3>File-Diff — 文件对比工具</h3>
+            <p>专业文件对比工具，支持文本文件的差异对比，高亮显示添加、删除和修改的内容。支持拖放上传、多种文件格式、大文件对比（最大 10MB）。</p>
+            <div class="project-tech">
+              <span class="tech-tag">React 18</span>
+              <span class="tech-tag">TypeScript</span>
+              <span class="tech-tag">Tailwind CSS</span>
+              <span class="tech-tag">Vite</span>
+            </div>
+          </div>
+          <div class="project-arrow">→</div>
+        </article>
+        <article class="project-item" onclick="window.open('https://jfjfjbjb.github.io/live-another-life/', '_blank')">
+          <div class="project-info">
+            <h3>Live Another Life — 重活一世</h3>
+            <p>一个 Vue 3 H5 人生模拟游戏，体验从出生到终老的完整人生旅程。真实历史大事件融入、随机人生大事、健康衰减系统、天气与心情系统。</p>
+            <div class="project-tech">
+              <span class="tech-tag">Vue 3</span>
+              <span class="tech-tag">Vite 6</span>
+              <span class="tech-tag">Composition API</span>
+            </div>
+          </div>
+          <div class="project-arrow">→</div>
+        </article>
+      </div>
+    </section>
+
+    <!-- <section id="skills">
+      <h2 class="section-title">技能与工具</h2>
+      <div class="skills-grid">
+        <div class="skill-card">
+          <div class="skill-icon">◆</div>
+          <h3>前端</h3>
+          <p>React, Vue.js, TypeScript, Vite, Tailwind CSS, Ant Design</p>
+          <div class="skill-bar"><div class="skill-bar-fill" style="width: 90%"></div></div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-icon">◇</div>
+          <h3>后端</h3>
+          <p>Node.js, Express, REST API, GraphQL</p>
+          <div class="skill-bar"><div class="skill-bar-fill" style="width: 75%"></div></div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-icon">○</div>
+          <h3>工具</h3>
+          <p>Git, GitHub Actions, VS Code, npm, ESLint</p>
+          <div class="skill-bar"><div class="skill-bar-fill" style="width: 85%"></div></div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-icon">□</div>
+          <h3>其他</h3>
+          <p>HTML5, CSS3, Less, JavaScript, JSON</p>
+          <div class="skill-bar"><div class="skill-bar-fill" style="width: 90%"></div></div>
+        </div>
+      </div>
+    </section> -->
+
+    <!-- <section id="contact">
+      <div class="contact-box">
+        <div class="section-label">04 — 联系方式</div>
+        <h2>联系我</h2>
+        <p>欢迎合作、项目和有趣的创意。</p>
+        <div class="contact-links">
+          <a href="https://github.com/jfjfjbjb" target="_blank" class="contact-btn primary">GitHub</a>
+        </div>
+      </div>
+    </section> -->
+  </main>
+
+  <footer>
+    <p>© 2026 jfjfjbjb // <a href="https://github.com/jfjfjbjb" target="_blank">GitHub</a></p>
+  </footer>
+</body>
+</html>
