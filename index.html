@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="./static/logo.svg" type="image/svg+xml">
-  <title>jfjfjbjb home</title>
+  <title>JF·Home</title>
   <style>
     :root {
       --bg-deep: #0a0a0f;
@@ -55,7 +55,7 @@
 
     /* Header */
     header {
-      padding: 1.5rem 2rem;
+      padding: 1rem 1.5rem;
       position: fixed;
       top: 0;
       left: 0;
@@ -67,7 +67,7 @@
     }
 
     nav {
-      max-width: 1200px;
+      max-width: 900px;
       margin: 0 auto;
       display: flex;
       justify-content: space-between;
@@ -110,18 +110,18 @@
 
     /* Main */
     main {
-      max-width: 1200px;
+      max-width: 900px;
       margin: 0 auto;
-      padding: 0 2rem;
+      padding: 0 1.5rem;
     }
 
     /* Hero */
     .hero {
-      min-height: 100vh;
+      min-height: 60vh;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      padding-top: 5rem;
+      padding-top: 4rem;
       position: relative;
     }
 
@@ -140,9 +140,9 @@
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      font-size: 0.75rem;
+      font-size: 0.7rem;
       color: var(--neon-green);
-      margin-bottom: 2rem;
+      margin-bottom: 1rem;
       text-transform: uppercase;
       letter-spacing: 0.1em;
     }
@@ -163,11 +163,11 @@
     }
 
     .hero h1 {
-      font-size: clamp(3rem, 8vw, 6rem);
+      font-size: clamp(2rem, 6vw, 4rem);
       font-weight: 700;
       line-height: 1.05;
       letter-spacing: -0.03em;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1rem;
     }
 
     .hero h1 .accent {
@@ -176,10 +176,10 @@
     }
 
     .hero p {
-      font-size: 1.125rem;
+      font-size: 0.9rem;
       color: var(--text-secondary);
       max-width: 500px;
-      line-height: 1.8;
+      line-height: 1.6;
     }
 
     .hero-location {
@@ -190,15 +190,15 @@
 
     .hero-tags {
       display: flex;
-      gap: 1rem;
-      margin-top: 3rem;
+      gap: 0.75rem;
+      margin-top: 2rem;
       flex-wrap: wrap;
     }
 
     .hero-tag {
-      padding: 0.5rem 1rem;
+      padding: 0.4rem 0.75rem;
       border: 1px solid var(--border);
-      font-size: 0.75rem;
+      font-size: 0.7rem;
       color: var(--text-secondary);
       transition: all 0.2s;
     }
@@ -211,22 +211,22 @@
 
     /* Section */
     section {
-      padding: 4rem 0;
+      padding: 3rem 0;
       border-bottom: 1px solid var(--border);
     }
 
     .section-label {
-      font-size: 0.7rem;
+      font-size: 0.65rem;
       color: var(--neon-purple);
       text-transform: uppercase;
       letter-spacing: 0.15em;
-      margin-bottom: 0.75rem;
+      margin-bottom: 0.5rem;
     }
 
     .section-title {
-      font-size: 1.75rem;
+      font-size: 1.25rem;
       font-weight: 600;
-      margin-bottom: 3rem;
+      margin-bottom: 1.5rem;
       color: var(--text-primary);
     }
 
@@ -242,8 +242,8 @@
     .project-item {
       display: grid;
       grid-template-columns: 1fr auto;
-      gap: 2rem;
-      padding: 2rem;
+      gap: 1.5rem;
+      padding: 1.25rem;
       background: var(--bg-deep);
       transition: background 0.2s;
       cursor: pointer;
@@ -259,23 +259,23 @@
     }
 
     .project-info h3 {
-      font-size: 1.25rem;
+      font-size: 1rem;
       font-weight: 600;
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.25rem;
       color: var(--text-primary);
     }
 
     .project-info p {
-      font-size: 0.875rem;
+      font-size: 0.8rem;
       color: var(--text-secondary);
-      line-height: 1.6;
+      line-height: 1.5;
       max-width: 600px;
     }
 
     .project-tech {
       display: flex;
-      gap: 0.5rem;
-      margin-top: 1rem;
+      gap: 0.4rem;
+      margin-top: 0.75rem;
       flex-wrap: wrap;
     }
 
@@ -298,12 +298,12 @@
     /* Skills */
     .skills-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.5rem;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1rem;
     }
 
     .skill-card {
-      padding: 1.5rem;
+      padding: 1rem;
       background: var(--bg-card);
       border: 1px solid var(--border);
       transition: all 0.2s;
@@ -315,26 +315,26 @@
     }
 
     .skill-icon {
-      font-size: 1.5rem;
-      margin-bottom: 1rem;
+      font-size: 1.25rem;
+      margin-bottom: 0.75rem;
     }
 
     .skill-card h3 {
-      font-size: 1rem;
+      font-size: 0.9rem;
       font-weight: 600;
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.35rem;
     }
 
     .skill-card p {
-      font-size: 0.8rem;
+      font-size: 0.75rem;
       color: var(--text-secondary);
-      line-height: 1.6;
+      line-height: 1.5;
     }
 
     .skill-bar {
-      height: 3px;
+      height: 2px;
       background: var(--border);
-      margin-top: 1rem;
+      margin-top: 0.75rem;
       border-radius: 2px;
       overflow: hidden;
     }
@@ -348,7 +348,7 @@
     /* Contact */
     .contact-box {
       text-align: center;
-      padding: 5rem 2rem;
+      padding: 3rem 1.5rem;
       border: 1px solid var(--border);
       background: var(--bg-card);
       position: relative;
@@ -361,36 +361,36 @@
       top: 0;
       left: 50%;
       transform: translateX(-50%);
-      width: 300px;
+      width: 200px;
       height: 1px;
       background: linear-gradient(90deg, transparent, var(--neon-green), transparent);
     }
 
     .contact-box h2 {
-      font-size: 2rem;
+      font-size: 1.5rem;
       font-weight: 600;
-      margin-bottom: 1rem;
+      margin-bottom: 0.75rem;
     }
 
     .contact-box p {
       color: var(--text-secondary);
-      margin-bottom: 2.5rem;
+      margin-bottom: 1.5rem;
     }
 
     .contact-links {
       display: flex;
       justify-content: center;
-      gap: 1rem;
+      gap: 0.75rem;
       flex-wrap: wrap;
     }
 
     .contact-btn {
       display: inline-flex;
       align-items: center;
-      gap: 0.5rem;
-      padding: 0.875rem 1.75rem;
+      gap: 0.4rem;
+      padding: 0.75rem 1.25rem;
       font-family: inherit;
-      font-size: 0.8rem;
+      font-size: 0.75rem;
       text-transform: uppercase;
       letter-spacing: 0.1em;
       text-decoration: none;
@@ -423,9 +423,9 @@
 
     /* Footer */
     footer {
-      padding: 2rem;
+      padding: 1.5rem;
       text-align: center;
-      font-size: 0.7rem;
+      font-size: 0.65rem;
       color: var(--text-secondary);
       border-top: 1px solid var(--border);
     }
@@ -527,35 +527,24 @@
       </div>
     </section>
 
-    <!-- <section id="skills">
-      <h2 class="section-title">技能与工具</h2>
-      <div class="skills-grid">
-        <div class="skill-card">
-          <div class="skill-icon">◆</div>
-          <h3>前端</h3>
-          <p>React, Vue.js, TypeScript, Vite, Tailwind CSS, Ant Design</p>
-          <div class="skill-bar"><div class="skill-bar-fill" style="width: 90%"></div></div>
-        </div>
-        <div class="skill-card">
-          <div class="skill-icon">◇</div>
-          <h3>后端</h3>
-          <p>Node.js, Express, REST API, GraphQL</p>
-          <div class="skill-bar"><div class="skill-bar-fill" style="width: 75%"></div></div>
-        </div>
-        <div class="skill-card">
-          <div class="skill-icon">○</div>
-          <h3>工具</h3>
-          <p>Git, GitHub Actions, VS Code, npm, ESLint</p>
-          <div class="skill-bar"><div class="skill-bar-fill" style="width: 85%"></div></div>
-        </div>
-        <div class="skill-card">
-          <div class="skill-icon">□</div>
-          <h3>其他</h3>
-          <p>HTML5, CSS3, Less, JavaScript, JSON</p>
-          <div class="skill-bar"><div class="skill-bar-fill" style="width: 90%"></div></div>
-        </div>
+    <section id="skills">
+      <h2 class="section-title">测试项目</h2>
+      <div class="projects-list">
+        <article class="project-item" onclick="window.open('https://jfjfjbjb.github.io/maps/', '_blank')">
+          <div class="project-info">
+            <h3>Maps — 地图</h3>
+            <p>地图demos集合</p>
+            <!-- <div class="project-tech">
+              <span class="tech-tag">React 19</span>
+              <span class="tech-tag">TypeScript</span>
+              <span class="tech-tag">Ant Design 6</span>
+              <span class="tech-tag">Vite</span>
+            </div> -->
+          </div>
+          <div class="project-arrow">→</div>
+        </article>
       </div>
-    </section> -->
+    </section>
 
     <!-- <section id="contact">
       <div class="contact-box">
