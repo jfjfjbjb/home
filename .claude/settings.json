@@ -3,7 +3,8 @@
     "allow": [
       "WebFetch(domain:github.com)",
       "Bash(gh api:*)",
-      "mcp__chrome-devtools__new_page"
+      "mcp__chrome-devtools__new_page",
+      "Bash(start index.html)"
     ],
     "additionalDirectories": [
       "D:\\workspace\\home"
