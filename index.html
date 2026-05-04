@@ -13,9 +13,13 @@
       --neon-green: #00ff88;
       --neon-blue: #6366f1;
       --neon-purple: #a855f7;
+      --neon-amber: #f59e0b;
+      --neon-cyan: #22d3ee;
       --text-primary: #e4e4e7;
       --text-secondary: #71717a;
+      --text-muted: #52525b;
       --border: #27272a;
+      --border-light: #32323d;
     }
 
     * {
@@ -35,6 +39,35 @@
       line-height: 1.7;
       min-height: 100vh;
       overflow-x: hidden;
+    }
+
+    /* Noise overlay for modern film-grain depth */
+    body::after {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+      background-repeat: repeat;
+      background-size: 256px 256px;
+      pointer-events: none;
+      z-index: 9998;
+      opacity: 0.6;
+    }
+
+    /* Scroll Progress Bar */
+    #scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--neon-green), var(--neon-blue), var(--neon-purple));
+      z-index: 1000;
+      transition: width 0.1s linear;
+      border-radius: 0 2px 0 0;
+      box-shadow: 0 0 8px rgba(0, 255, 136, 0.3);
     }
 
     /* Grid Background */
@@ -60,10 +93,17 @@
       top: 0;
       left: 0;
       right: 0;
-      background: rgba(10, 10, 15, 0.9);
+      background: rgba(10, 10, 15, 0.85);
       backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
+      border-bottom: 1px solid transparent;
       z-index: 100;
+      transition: border-color 0.3s, background 0.3s, box-shadow 0.3s;
+    }
+
+    header.scrolled {
+      border-bottom-color: var(--border);
+      background: rgba(10, 10, 15, 0.95);
+      box-shadow: 0 1px 20px rgba(0, 0, 0, 0.3);
     }
 
     nav {
@@ -82,6 +122,12 @@
       font-weight: 600;
       color: var(--neon-green);
       text-shadow: 0 0 20px rgba(0, 255, 136, 0.4);
+      animation: logoGlow 4s ease-in-out infinite;
+    }
+
+    @keyframes logoGlow {
+      0%, 100% { text-shadow: 0 0 20px rgba(0, 255, 136, 0.4); }
+      50% { text-shadow: 0 0 30px rgba(0, 255, 136, 0.6), 0 0 15px rgba(99, 102, 241, 0.2); }
     }
 
     .logo svg {
@@ -117,11 +163,11 @@
 
     /* Hero */
     .hero {
-      min-height: 60vh;
+      min-height: 42vh;
       display: grid;
       grid-template-columns: 1fr 1fr;
       align-items: center;
-      padding-top: 4rem;
+      padding-top: 3.5rem;
       position: relative;
     }
 
@@ -129,6 +175,8 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
+      position: relative;
+      z-index: 1;
     }
 
     .hero::after {
@@ -157,10 +205,43 @@
       filter: blur(40px);
     }
 
+    /* Second floating orb for more depth */
+    .hero-content::before {
+      content: '';
+      position: absolute;
+      bottom: 10%;
+      left: -8%;
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, rgba(0, 255, 136, 0.10) 0%, rgba(99, 102, 241, 0.04) 40%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+      animation: heroOrbFloat2 10s ease-in-out infinite;
+      filter: blur(50px);
+      z-index: 0;
+    }
+
     @keyframes heroOrbFloat {
       0%, 100% { transform: translate(0, 0) scale(1); }
       33% { transform: translate(-30px, 20px) scale(1.05); }
       66% { transform: translate(20px, -15px) scale(0.95); }
+    }
+
+    @keyframes heroOrbFloat2 {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      25% { transform: translate(25px, -20px) scale(1.08); }
+      50% { transform: translate(-15px, 10px) scale(0.92); }
+      75% { transform: translate(10px, -5px) scale(1.03); }
+    }
+
+    /* Text-shadow only — more visible than drop-shadow filter for text glow */
+    @keyframes accentShimmer {
+      0%, 100% { text-shadow: 0 0 30px rgba(99, 102, 241, 0.5), 0 0 60px rgba(99, 102, 241, 0.2); }
+      50% { text-shadow: 0 0 50px rgba(168, 85, 247, 0.8), 0 0 80px rgba(99, 102, 241, 0.4), 0 0 100px rgba(168, 85, 247, 0.3); }
+    }
+
+    .hero h1 .accent {
+      animation: accentShimmer 2.5s ease-in-out infinite;
     }
 
     /* Hero staggered entrance */
@@ -186,7 +267,7 @@
       position: relative;
       width: 100%;
       aspect-ratio: 1;
-      max-width: 380px;
+      max-width: 280px;
       justify-self: center;
       opacity: 0;
       animation: heroFadeUp 0.8s ease-out 0.4s forwards;
@@ -253,7 +334,6 @@
       border-color: var(--neon-green);
       color: var(--neon-green);
       box-shadow: 0 0 20px rgba(0, 255, 136, 0.2);
-      /* transform: scale(1.15); */
     }
 
     .orbit-ring-1 .orbit-dot { top: -18px; left: calc(50% - 18px); }
@@ -265,17 +345,12 @@
 
     /* Counter-rotate dots so text stays upright */
     .orbit-ring-1 .orbit-dot { animation: orbitCounterSpin 20s linear infinite; }
-    .orbit-ring-2 .orbit-dot { animation: orbitCounterSpin 30s linear infinite reverse; }
     .orbit-ring-3 .orbit-dot { animation: orbitCounterSpin 40s linear infinite; }
 
     @keyframes orbitCounterSpin {
       to { transform: rotate(-360deg); }
     }
 
-    .orbit-ring-2 .orbit-dot:hover,
-    .orbit-ring-2 .orbit-dot:nth-child(2) {
-      transform: translateY(-50%);
-    }
     .orbit-ring-2 .orbit-dot { animation: orbitCounterSpin2 30s linear infinite reverse; }
     @keyframes orbitCounterSpin2 {
       from { transform: translateY(-50%) rotate(0deg); }
@@ -305,7 +380,8 @@
 
     @keyframes centerPulse {
       0%, 100% { box-shadow: 0 0 40px rgba(0, 255, 136, 0.08), 0 0 80px rgba(99, 102, 241, 0.06); }
-      50% { box-shadow: 0 0 50px rgba(0, 255, 136, 0.15), 0 0 100px rgba(99, 102, 241, 0.1); }
+      33% { box-shadow: 0 0 55px rgba(0, 255, 136, 0.18), 0 0 100px rgba(99, 102, 241, 0.12); }
+      66% { box-shadow: 0 0 45px rgba(168, 85, 247, 0.14), 0 0 90px rgba(0, 255, 136, 0.08); }
     }
 
     /* Orbit connector lines (decorative) */
@@ -327,12 +403,6 @@
         opacity: 1;
         transform: translateY(0);
       }
-    }
-
-    /* Hero tags shimmer on entrance */
-    .hero-tag {
-      position: relative;
-      overflow: hidden;
     }
 
     .hero-tag::after {
@@ -410,6 +480,8 @@
     }
 
     .hero-tag {
+      position: relative;
+      overflow: hidden;
       padding: 0.4rem 0.75rem;
       border: 1px solid var(--border);
       font-size: 0.7rem;
@@ -442,6 +514,25 @@
       font-weight: 600;
       margin-bottom: 1.5rem;
       color: var(--text-primary);
+      position: relative;
+      display: inline-block;
+      padding-bottom: 0.5rem;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--neon-green), var(--neon-blue));
+      border-radius: 2px;
+      transition: width 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .section-title.scroll-visible::after {
+      width: 100%;
     }
 
     /* Projects */
@@ -459,12 +550,30 @@
       gap: 1.5rem;
       padding: 1.25rem;
       background: var(--bg-deep);
-      transition: background 0.2s;
       cursor: pointer;
+      border-left: 2px solid transparent;
+      position: relative;
+    }
+
+    .project-item::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(180deg, var(--neon-green), var(--neon-blue), var(--neon-purple));
+      opacity: 0;
+      transition: opacity 0.3s;
     }
 
     .project-item:hover {
       background: var(--bg-card);
+      box-shadow: inset 0 0 40px rgba(99, 102, 241, 0.03);
+    }
+
+    .project-item:hover::before {
+      opacity: 1;
     }
 
     .project-item:hover .project-arrow {
@@ -500,6 +609,14 @@
       color: var(--neon-blue);
       text-transform: uppercase;
       letter-spacing: 0.05em;
+      transition: all 0.25s;
+      border: 1px solid transparent;
+    }
+
+    .tech-tag:hover {
+      border-color: rgba(99, 102, 241, 0.3);
+      box-shadow: 0 0 12px rgba(99, 102, 241, 0.15);
+      transform: translateY(-1px);
     }
 
     .project-arrow {
@@ -694,17 +811,262 @@
       50% { opacity: 0; }
     }
 
-    /* Scroll animations */
+    /* ——— Keyframe animations ——— */
+
+    @keyframes glitch {
+      0%, 100% { transform: translate(0); }
+      20% { transform: translate(-2px, 1px); }
+      40% { transform: translate(2px, -1px); }
+      60% { transform: translate(-1px, 0.5px); }
+      80% { transform: translate(1px, -0.5px); }
+    }
+
+    @keyframes gradientFlow {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    @keyframes badgePop {
+      0% { transform: translateY(-10px) scale(0.7); opacity: 0; }
+      40% { transform: translateY(3px) scale(1.07); opacity: 1; }
+      65% { transform: translateY(-2px) scale(0.97); }
+      100% { transform: translateY(0) scale(1); opacity: 1; }
+    }
+
+    /* Scroll-triggered fade-in (IntersectionObserver adds .scroll-visible) */
     .scroll-hidden {
       opacity: 0;
-      transform: translateY(24px);
-      transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+      transition: opacity 0.5s ease-out;
       transition-delay: var(--delay, 0ms);
     }
 
     .scroll-visible {
       opacity: 1 !important;
-      transform: translateY(0) !important;
+    }
+
+    /* ========== FEATURED SECTION (精选项目) ========== */
+    #work .section-title {
+      background: linear-gradient(135deg, var(--neon-green), var(--neon-cyan), var(--neon-green));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      /* clip text to gradient */
+      background-size: 200% auto;
+      animation: gradientFlow 4s ease-in-out infinite;
+      font-weight: 700;
+    }
+
+    #work .section-title::after {
+      background: linear-gradient(90deg, var(--neon-green), var(--neon-cyan), var(--neon-blue));
+      height: 2.5px;
+      border-radius: 2px;
+    }
+
+    /* Featured project card glow */
+    #work .project-item {
+      border-left: 2px solid transparent;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #work .project-item::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(0, 255, 136, 0.02), rgba(34, 211, 238, 0.02), rgba(99, 102, 241, 0.02));
+      opacity: 0;
+      transition: opacity 0.5s;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    #work .project-item:hover::after {
+      opacity: 1;
+    }
+
+    #work .project-item:hover {
+      background: var(--bg-card);
+      box-shadow: 0 0 30px rgba(0, 255, 136, 0.04), inset 0 0 50px rgba(0, 255, 136, 0.02);
+      border-left-color: var(--neon-green);
+    }
+
+    #work .project-item:hover .project-info h3 {
+      color: var(--neon-green);
+      text-shadow: 0 0 15px rgba(0, 255, 136, 0.15);
+    }
+
+    #work .project-item .project-info,
+    #work .project-item .project-arrow {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Featured tech tags */
+    #work .tech-tag {
+      background: rgba(0, 255, 136, 0.08);
+      color: var(--neon-green);
+      border: 1px solid rgba(0, 255, 136, 0.12);
+    }
+
+    #work .tech-tag:hover {
+      border-color: rgba(0, 255, 136, 0.35);
+      box-shadow: 0 0 15px rgba(0, 255, 136, 0.12);
+      background: rgba(0, 255, 136, 0.14);
+    }
+
+    /* ========== TEST SECTION (测试项目) ========== */
+    #skills {
+      position: relative;
+    }
+
+    #skills::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(168, 85, 247, 0.15), transparent);
+    }
+
+    #skills .section-title {
+      color: var(--text-secondary);
+      font-weight: 500;
+      font-size: 1rem;
+      letter-spacing: 0.05em;
+    }
+
+    #skills .section-title::after {
+      background: linear-gradient(90deg, var(--neon-purple), rgba(168, 85, 247, 0.4));
+      height: 1.5px;
+      opacity: 0.6;
+    }
+
+    /* Test project cards — compact & experimental */
+    #skills .project-item {
+      border-left: 2px dashed rgba(168, 85, 247, 0.15);
+      background: rgba(18, 18, 26, 0.5);
+      padding: 0.9rem 1.25rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Hide general gradient border; first-child reuses ::before for badge */
+    #skills .project-item::before {
+      display: none;
+    }
+
+    #skills .project-item::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(168, 85, 247, 0.008) 2px,
+        rgba(168, 85, 247, 0.008) 4px
+      );
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    #skills .project-item:hover {
+      background: rgba(26, 26, 37, 0.8);
+      box-shadow: 0 0 15px rgba(168, 85, 247, 0.04);
+      border-left-style: solid;
+      border-left-color: rgba(168, 85, 247, 0.35);
+    }
+
+    #skills .project-item:hover .project-arrow {
+      transform: translateX(3px);
+      color: var(--neon-purple);
+    }
+
+    #skills .project-info h3 {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      transition: color 0.3s;
+    }
+
+    #skills .project-item:hover .project-info h3 {
+      color: var(--text-primary);
+    }
+
+    #skills .project-info p {
+      font-size: 0.72rem;
+    }
+
+    #skills .project-item .project-info,
+    #skills .project-item .project-arrow {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Test badge — shown on hover for first test item */
+    #skills .project-item:first-child::before {
+      content: '测试';
+      position: absolute;
+      top: 0.6rem;
+      right: 0.75rem;
+      font-size: 0.55rem;
+      padding: 0.1rem 0.45rem;
+      background: rgba(168, 85, 247, 0.1);
+      border: 1px dashed rgba(168, 85, 247, 0.25);
+      color: var(--neon-purple);
+      letter-spacing: 0.06em;
+      opacity: 0;
+      transform: translateY(-3px);
+      transition: all 0.4s;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    #skills .project-item:first-child:hover::before {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ========== SECTION BADGE ========== */
+    .section-badge {
+      display: inline-block;
+      font-size: 0.6rem;
+      padding: 0.2rem 0.6rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 0.6rem;
+      border-radius: 2px;
+      opacity: 0;
+    }
+
+    .section-badge.badge-visible {
+      animation: badgePop 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    .section-badge.featured {
+      background: rgba(0, 255, 136, 0.08);
+      border: 1px solid rgba(0, 255, 136, 0.2);
+      color: var(--neon-green);
+    }
+
+    .section-badge.test {
+      background: rgba(168, 85, 247, 0.08);
+      border: 1px dashed rgba(168, 85, 247, 0.25);
+      color: var(--neon-purple);
+    }
+
+    /* ========== PROJECT ITEM IMPROVED HOVER ========== */
+    .project-item {
+      transition: background 0.3s, box-shadow 0.3s, border-color 0.3s, transform 0.15s ease-out;
+    }
+
+    .project-item:active {
+      transform: scale(0.99);
     }
 
     /* Responsive */
@@ -753,10 +1115,16 @@
       .project-arrow {
         display: none;
       }
+
+      #skills .project-item:first-child::before {
+        top: 0.4rem;
+        right: 0.5rem;
+      }
     }
   </style>
 </head>
 <body>
+  <div id="scroll-progress"></div>
   <canvas id="bg-particles"></canvas>
   <header>
     <nav>
@@ -813,6 +1181,7 @@
 
     <section id="work">
       <h2 class="section-title">精选项目</h2>
+      <div class="section-badge featured">Featured</div>
       <div class="projects-list">
         <article class="project-item" onclick="window.open('https://jfjfjbjb.github.io/water-mask/', '_blank')">
           <div class="project-info">
@@ -857,6 +1226,7 @@
 
     <section id="skills">
       <h2 class="section-title">测试项目</h2>
+      <div class="section-badge test">Experimental</div>
       <div class="projects-list">
         <article class="project-item" onclick="window.open('https://jfjfjbjb.github.io/maps/', '_blank')">
           <div class="project-info">
@@ -901,11 +1271,16 @@
 
   <script>
     (function () {
-      // ===== 1. PARTICLES =====
+      // ===== 1. PARTICLES (multi-color) =====
       const canvas = document.getElementById('bg-particles');
       const ctx = canvas.getContext('2d');
-      const COUNT = 40;
-      const LINK_DIST = 120;
+      const COUNT = 55;
+      const LINK_DIST = 140;
+      const COLORS = [
+        { r: 0, g: 255, b: 136 },   // neon-green
+        { r: 99, g: 102, b: 241 },   // neon-blue
+        { r: 168, g: 85, b: 247 },   // neon-purple
+      ];
       let particles = [];
 
       function resize() {
@@ -914,12 +1289,15 @@
       }
 
       function mkParticle() {
+        const color = COLORS[Math.floor(Math.random() * COLORS.length)];
         return {
           x: Math.random() * canvas.width,
           y: Math.random() * canvas.height,
-          vx: (Math.random() - 0.5) * 0.4,
-          vy: (Math.random() - 0.5) * 0.4,
-          r: Math.random() * 1.2 + 0.4
+          vx: (Math.random() - 0.5) * 0.35,
+          vy: (Math.random() - 0.5) * 0.35,
+          r: Math.random() * 1.4 + 0.4,
+          color: color,
+          phase: Math.random() * Math.PI * 2
         };
       }
 
@@ -927,27 +1305,33 @@
       particles = Array.from({ length: COUNT }, mkParticle);
       window.addEventListener('resize', resize);
 
-      function drawParticles() {
+      function drawParticles(t) {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
+        var tSec = t * 0.001;
         for (let i = 0; i < COUNT; i++) {
           const p = particles[i];
           p.x += p.vx;
           p.y += p.vy;
           if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
           if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+          // subtle opacity breathing per particle
+          var alpha = 0.22 + 0.12 * Math.sin(tSec * 0.8 + p.phase);
           ctx.beginPath();
           ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-          ctx.fillStyle = 'rgba(0,255,136,0.28)';
+          ctx.fillStyle = 'rgba(' + p.color.r + ',' + p.color.g + ',' + p.color.b + ',' + alpha + ')';
           ctx.fill();
+          // connections only between same-color particles
           for (let j = i + 1; j < COUNT; j++) {
             const q = particles[j];
+            if (p.color.r !== q.color.r || p.color.g !== q.color.g) continue;
             const dx = p.x - q.x, dy = p.y - q.y;
             const d = Math.sqrt(dx * dx + dy * dy);
             if (d < LINK_DIST) {
+              var lineAlpha = 0.06 * (1 - d / LINK_DIST);
               ctx.beginPath();
               ctx.moveTo(p.x, p.y);
               ctx.lineTo(q.x, q.y);
-              ctx.strokeStyle = 'rgba(0,255,136,' + (0.07 * (1 - d / LINK_DIST)).toFixed(3) + ')';
+              ctx.strokeStyle = 'rgba(' + p.color.r + ',' + p.color.g + ',' + p.color.b + ',' + lineAlpha + ')';
               ctx.lineWidth = 0.5;
               ctx.stroke();
             }
@@ -955,25 +1339,56 @@
         }
         requestAnimationFrame(drawParticles);
       }
-      drawParticles();
+      requestAnimationFrame(drawParticles);
 
-      // ===== 2. CURSOR GLOW =====
+      // ===== 2. CURSOR GLOW (with gentle color shift) =====
       const glow = document.getElementById('cursor-glow');
       let mx = 0, my = 0, gx = -500, gy = -500;
+      let hueShift = 0;
 
       document.addEventListener('mousemove', function (e) {
         mx = e.clientX;
         my = e.clientY;
+        // Shift hue based on cursor position on screen
+        hueShift = (e.clientX / window.innerWidth) * 0.6;
       });
 
-      (function glowLoop() {
+      (function glowLoop(t) {
         gx += (mx - gx) * 0.12;
         gy += (my - gy) * 0.12;
-        glow.style.transform = 'translate(' + (gx - 160) + 'px,' + (gy - 160) + 'px)';
+        var tSec = t * 0.001;
+        // Gentle size breathing
+        var scale = 1 + 0.04 * Math.sin(tSec * 0.5);
+        // Color shift blend
+        var r1 = 99, g1 = 102, b1 = 241;   // blue
+        var r2 = 168, g2 = 85, b2 = 247;    // purple
+        var blend = 0.5 + 0.5 * Math.sin(tSec * 0.3 + hueShift);
+        var cr = Math.round(r1 + (r2 - r1) * blend);
+        var cg = Math.round(g1 + (g2 - g1) * blend);
+        var cb = Math.round(b1 + (b2 - b1) * blend);
+        glow.style.transform = 'translate(' + ((gx - 160) * scale) + 'px,' + ((gy - 160) * scale) + 'px)';
+        glow.style.background = 'radial-gradient(circle, rgba(' + cr + ',' + cg + ',' + cb + ',0.10) 0%, transparent 70%)';
         requestAnimationFrame(glowLoop);
       })();
 
-      // ===== 3. SCROLL ANIMATIONS =====
+      // ===== 3. SCROLL PROGRESS + HEADER EFFECT =====
+      const scrollProgress = document.getElementById('scroll-progress');
+      const header = document.querySelector('header');
+
+      window.addEventListener('scroll', function () {
+        var scrollTop = window.scrollY || document.documentElement.scrollTop;
+        var docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        var progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+        scrollProgress.style.width = progress + '%';
+
+        if (scrollTop > 20) {
+          header.classList.add('scrolled');
+        } else {
+          header.classList.remove('scrolled');
+        }
+      }, { passive: true });
+
+      // ===== 4. SCROLL ANIMATIONS =====
       var scrollEls = document.querySelectorAll('.project-item, .section-title');
       scrollEls.forEach(function (el) {
         el.classList.add('scroll-hidden');
@@ -996,7 +1411,19 @@
 
       scrollEls.forEach(function (el) { scrollObs.observe(el); });
 
-      // ===== 4. TYPEWRITER =====
+      // Separate observer for section badges
+      var badges = document.querySelectorAll('.section-badge');
+      var badgeObs = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) {
+            e.target.classList.add('badge-visible');
+            badgeObs.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.15 });
+      badges.forEach(function (el) { badgeObs.observe(el); });
+
+      // ===== 5. TYPEWRITER =====
       var h1 = document.querySelector('.hero-content h1');
       var PREFIX = 'Web';
       var ACCENT = '开发者';
@@ -1036,6 +1463,22 @@
       }
 
       setTimeout(type, 400);
+
+      // ===== 6. GLITCH TEXT ON FEATURED SECTION TITLE HOVER =====
+      var featuredTitle = document.querySelector('#work .section-title');
+      var glitchTimer = null;
+
+      featuredTitle.addEventListener('mouseenter', function () {
+        featuredTitle.style.animation = 'glitch 0.3s ease-in-out 3';
+        glitchTimer = setTimeout(function () {
+          featuredTitle.style.animation = 'gradientFlow 4s ease-in-out infinite';
+        }, 900);
+      });
+
+      featuredTitle.addEventListener('mouseleave', function () {
+        clearTimeout(glitchTimer);
+        featuredTitle.style.animation = 'gradientFlow 4s ease-in-out infinite';
+      });
 
       // Unlock scroll after entrance animations finish
       setTimeout(function () {
